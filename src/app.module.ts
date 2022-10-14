@@ -1,19 +1,11 @@
-import { Module, OnModuleInit } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { Module } from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      envFilePath: ['development.local.env', 'development.env'],
-    }),
-  ],
+  imports: [HttpModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule implements OnModuleInit {
-  onModuleInit(): void {
-    console.log('[AppModule]: initial event!');
-  }
-}
+export class AppModule {}
