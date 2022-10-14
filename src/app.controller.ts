@@ -1,13 +1,17 @@
 import { Controller, Get } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ModuleRef } from '@nestjs/core';
+import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly configService: ConfigService) {}
+  private readonly appService: AppService;
+
+  constructor(private readonly moduleRef: ModuleRef) {
+    this.appService = this.moduleRef.get(AppService);
+  }
 
   @Get()
   getHello() {
-    const username = this.configService.get('USERNAME');
-    return { username };
+    return this.appService.getHello();
   }
 }
